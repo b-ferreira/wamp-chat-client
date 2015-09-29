@@ -11,7 +11,7 @@
       // Home state
       .state('home', {
         url: '/',
-        redirectTo: "login",
+        redirectTo: "home.login",
         views: {
           'content@':{
             templateUrl: "app/main/main.html"
@@ -31,9 +31,19 @@
             controllerAs: "vm"
           }
         }
+      })
+
+      .state('home.chat', {
+        url: "chat",
+        views: {
+          'innerContent': {
+            templateUrl: "app/chat/chat.html",
+            controller: "ChatController",
+            controllerAs: "chat"
+          }
+        }
       });
 
     $urlRouterProvider.otherwise('/');
   }
-
 })();

@@ -1,0 +1,26 @@
+<div layout layout-padding>
+
+	<md-grid-list class="chat-grid" md-cols="8" md-row-height="2:8" md-gutter="5px">
+		<!-- Participant List -->
+		<md-grid-tile md-colspan="1" class="participants-list" >
+			<md-grid-tile-header>
+				<h3>Participants</h3>
+			</md-grid-tile-header>
+			<md-list>
+				<md-list-item class="md-1-line" ng-repeat="participant in chat.participantList">
+					<h3>{{participant}}</h3>
+				</md-list-item>				
+			</md-list>
+			<md-grid-tile-footer layout-align="end">
+				<md-button ng-click="chat.logout()">Logout</md-button>
+			</md-grid-tile-footer>
+		</md-grid-tile>
+
+		<!-- Chat Area -->
+		<md-grid-tile md-colspan="7">
+			<div layout="vertical" layout-fill>
+				
+			</div>
+		</md-grid-tile>
+	</md-grid-list>
+</div>

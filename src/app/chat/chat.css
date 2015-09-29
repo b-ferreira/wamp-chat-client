@@ -1,0 +1,15 @@
+.chat-grid {
+	width: 100%;
+	min-height: 100%;
+}
+
+.chat-grid md-grid-tile figure {
+	align-items: flex-start;
+	justify-content: flex-start;
+	padding-top: 35px;
+}
+
+.chat-grid > .participants-list {
+	background-color: #5aadbb;
+	color: white;
+}

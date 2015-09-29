@@ -9,10 +9,17 @@
 </section>
 
 <div layout="row" layout-align="center">
-  <md-input-container>
-    <label>Username</label>
-    <input type="text" ng-model="vm.username">
-  </md-input-container>
+  <form name="loginForm">
+    <md-input-container>
+      <label>Username</label>
+      <input required type="text" name="username" ng-model="vm.username">
+      <div ng-messages="loginForm.username.$error">
+        <div ng-message="required">This is required.</div>
+        <div ng-message="loginFail"></div>
+      </div>
+    </md-input-container>
+    <span class="login-message error" ng-if="vm.loginStatus == 'fail'">This username is already in use. Please, select another.</span>
+  </form>
   <md-button ng-click="vm.login()">Login</md-button>
 </div>
 
