@@ -3,9 +3,9 @@
     angular
         .module('wampChatClient')
         .controller('LoginController', LoginController);
-    LoginController.$inject = ['$scope', '$wamp', '$log', '$state'];
+    LoginController.$inject = ['$scope', '$wamp', '$state', 'UtilsService'];
     /* @ngInject */
-    function LoginController($scope, $wamp, $log, $state) {
+    function LoginController($scope, $wamp, $state, UtilsService) {
         var vm = this;
         vm.scope = $scope;
 
@@ -17,17 +17,14 @@
         activate();
         ////////////////
         function login() {
-            $log.info(vm.username);
             if (!angular.isUndefined(vm.username)) {
-                $wamp.call('com.chat.login', [vm.username]).then(
+                $wamp.call('com.chat.login', [vm.username, UtilsService.func.guid()]).then(
                     function(res) {
                         vm.loginStatus = 'ok';
-                        $state.go('home.chat');
-                        $log.info("Login done!");
+                        $state.go('home.chat', {user:res.data});
                     },
                     function(error) {
                         vm.loginStatus = 'fail';
-                        $log.error("Login fail!");
                     }
                 );
             }

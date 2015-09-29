@@ -4,12 +4,19 @@
 		<!-- Participant List -->
 		<md-grid-tile md-colspan="1" class="participants-list" >
 			<md-grid-tile-header>
-				<h3>Participants</h3>
+				<h3>Welcome, {{chat.user.username}}</h3>
 			</md-grid-tile-header>
 			<md-list>
 				<md-list-item class="md-1-line" ng-repeat="participant in chat.participantList">
-					<h3>{{participant}}</h3>
-				</md-list-item>				
+					<div layout="row">
+						<md-button class="grid-list-username" ng-click="chat.participantsListClick(participant)">
+							{{participant.username}}
+						</md-button>
+						<md-button class="md-fab md-mini unread-message-count" ng-if="participant.unreadMessages > 0" ng-click="chat.participantsListClick(participant)">
+							{{participant.unreadMessages}}
+						</md-button>
+					</div>
+				</md-list-item>
 			</md-list>
 			<md-grid-tile-footer layout-align="end">
 				<md-button ng-click="chat.logout()">Logout</md-button>
@@ -17,10 +24,20 @@
 		</md-grid-tile>
 
 		<!-- Chat Area -->
-		<md-grid-tile md-colspan="7">
-			<div layout="vertical" layout-fill>
-				
-			</div>
+		<md-grid-tile md-colspan="7" class="chat-content">
+			<md-content layout="column" ng-if="chat.currentConversation.username != undefined">
+				<md-subheader class="md-primary chat-message-header">Conversation with {{chat.currentConversation.username}}</md-subheader>
+				<md-virtual-repeat-container id="messages-container">
+					<div md-virtual-repeat="message in chat.currentConversation.messages" md-on-demand class="repeated-item" flex>
+						{{message.message}}
+					</div>
+				</md-virtual-repeat-container>
+				<md-input-container flex>
+					<label>Message</label>
+					<input ng-model="chat.messageText" columns="1" md-maxlength="150"></input>
+				</md-input-container>
+				<md-button>Send</md-button>
+			</md-content>
 		</md-grid-tile>
 	</md-grid-list>
 </div>

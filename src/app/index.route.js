@@ -14,11 +14,14 @@
         redirectTo: "home.login",
         views: {
           'content@':{
-            templateUrl: "app/main/main.html"
+            templateUrl: "app/main/main.html",
+            controller: 'MainController',
+            controllerAs: 'main'
           }
         },
-        controller: 'MainController',
-        controllerAs: 'main'
+        params: {
+          user: undefined
+        }
       })
 
       // Login state
