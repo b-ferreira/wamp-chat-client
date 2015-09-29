@@ -1,2 +1,2 @@
 # wamp-chat-client
-A sample client project for wamp chat server built on AngularWAMP (AutobahnJS wrapper over WAMP WS protocol)
+A sample client project for wamp chat server built on [AngularWAMP](https://github.com/voryx/angular-wamp) ([AutobahnJS](http://autobahn.ws/) wrapper over [WAMP WS](http://wamp.ws/) protocol)
