@@ -36,6 +36,7 @@
         }
       })
 
+      // Chat state
       .state('home.chat', {
         url: "chat",
         views: {

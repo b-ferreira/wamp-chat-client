@@ -19,7 +19,7 @@
 
     // WAMP config
     $wampProvider.init({
-      url: 'ws://127.0.0.1:9000/ws',
+      url: 'ws://10.10.58.41:9000/ws',
       realm: 'realm1'      
     });
   }

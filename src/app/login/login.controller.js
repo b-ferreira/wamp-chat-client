@@ -17,7 +17,7 @@
         activate();
         ////////////////
         function login() {
-            if (!angular.isUndefined(vm.username)) {
+            if (angular.isDefined(vm.username)) {
                 $wamp.call('com.chat.login', [vm.username, UtilsService.func.guid()]).then(
                     function(res) {
                         vm.loginStatus = 'ok';

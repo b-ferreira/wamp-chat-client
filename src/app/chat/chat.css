@@ -25,10 +25,7 @@
 }
 
 .unread-message-count {
-	margin-top: 12px !important;
-	line-height: 15px !important;
-    width: 32px !important;
-    height: 15px !important;    
+	margin-top: 12px;
 }
 
 .chat-message-header {
@@ -45,4 +42,13 @@
 .chat-grid .chat-content figure #messages-container {
 	height: 755px;
 	width: 1660px;
+}
+
+.message-prefix {
+	font-weight: bold;
+	color: blue;
+}
+
+.message-prefix.message-from {
+	color: green;
 }
