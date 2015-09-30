@@ -17,10 +17,18 @@
     toastrConfig.preventDuplicates = true;
     toastrConfig.progressBar = true;
 
+    var wsuri;
+    if (document.location.origin == "file://") {
+       wsuri = "ws://127.0.0.1:9000/ws";
+    } else {
+       wsuri = (document.location.protocol === "http:" ? "ws:" : "wss:") + "//" +
+                   document.location.host + "/ws";
+    }
+
     // WAMP config
     $wampProvider.init({
-      url: 'ws://127.0.0.1:9000/ws',
-      realm: 'realm1'      
+      url: wsuri,
+      realm: 'realm1'
     });
   }
 })();
