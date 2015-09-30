@@ -41,12 +41,8 @@ html {
   font-family: 'Roboto Slab', serif;
 }
 
-md-toolbar.md-default-theme {
-  background-color: black;
-}
-
-md-content {
-  width: 100%;
+body {
+  background-color: #FCF7C5;
 }
 
 section.jumbotron {
@@ -54,10 +50,19 @@ section.jumbotron {
   padding: 1px 30px;
   background-color: #5aadbb;
   text-align: center;
-
   color: white;
 }
 
 section.jumbotron h1 {
   font-size: 3em;
+}
+
+.login-message {
+  font-size: 12px;
+  line-height: 24px;
+  padding-right: 30px;
+}
+
+.login-message.error {
+  color: red;
 }

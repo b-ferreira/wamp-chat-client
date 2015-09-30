@@ -8,15 +8,14 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
-      // Home state
+      // Home state, i.e. login state.
       .state('home', {
         url: '/',
-        redirectTo: "home.login",
         views: {
           'content@':{
-            templateUrl: "app/main/main.html",
-            controller: 'MainController',
-            controllerAs: 'main'
+            templateUrl: "app/login/login.html",
+            controller: "LoginController",
+            controllerAs: "vm"
           }
         },
         params: {
@@ -24,23 +23,10 @@
         }
       })
 
-      // Login state
-      .state('home.login', {
-        url: "login",
-        views: {
-          'innerContent': {
-            templateUrl: "app/login/login.html",
-            controller: "LoginController",
-            controllerAs: "vm"
-          }
-        }
-      })
-
-      // Chat state
       .state('home.chat', {
         url: "chat",
         views: {
-          'innerContent': {
+          'content@': {
             templateUrl: "app/chat/chat.html",
             controller: "ChatController",
             controllerAs: "chat"

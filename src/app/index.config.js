@@ -22,7 +22,7 @@
        wsuri = "ws://127.0.0.1:9000/ws";
     } else {
        wsuri = (document.location.protocol === "http:" ? "ws:" : "wss:") + "//" +
-                   document.location.host + "/ws";
+                   document.location.hostname + ":9000" + "/ws";
     }
 
     // WAMP config

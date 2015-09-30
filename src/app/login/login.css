@@ -1,9 +1,0 @@
-.login-message {
-	font-size: 12px;
-	line-height: 24px;
-	padding-right: 30px;
-}
-
-.login-message.error {
-	color: red;
-}
