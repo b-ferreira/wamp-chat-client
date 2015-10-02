@@ -1,26 +1,22 @@
-<div layout="column" layout-fill>
-  <section class="jumbotron" flex="20">
-    <h1>Hi there!</h1>
-    <p class="lead">
-      This is a very simple Chat Application built on top of AngularWAMP framework.
-    </p>      
-    <p>
-      Please, enter with an username of your choice enjoy it!
-    </p>  
-  </section>
+<div layout="column" layout-align="center center" layout-fill>
 
-  <div layout="row" layout-align="center" flex="80">
+  <div layout="column" class="login-box">
+    <md-subheader class="login-box-header">
+      <h3>Wamp Chat</h3>
+    </md-subheader>
+
     <form name="loginForm">
-      <md-input-container>
+      <md-input-container class="login-input">
         <label>Username</label>
         <input required type="text" name="username" ng-model="vm.username">
-        <div ng-messages="loginForm.username.$error">
+        <div ng-messages="loginForm.username.$error" class="login-error-box">
           <div ng-message="required">This is required.</div>
           <div ng-message="loginFail"></div>
         </div>
       </md-input-container>
       <span class="login-message error" ng-if="vm.loginStatus == 'fail'">This username is already in use. Please, select another.</span>
     </form>
-    <md-button ng-click="vm.login()">Login</md-button>
+
+    <md-button class="login-btn"  ng-click="vm.login()">Login</md-button>  
   </div>
 </div>
