@@ -1,33 +1,32 @@
 .chat-container {
-	margin: 5px 11px;
-	padding: 5px 11px;
+	margin: 45px 85px;
+
+	-webkit-box-shadow: 0px 15px 12px -6px rgba(0,0,0,0.45);
+	-moz-box-shadow: 0px 15px 12px -6px rgba(0,0,0,0.45);
+	box-shadow: 0px 15px 12px -6px rgba(0,0,0,0.45);
+
+	border-radius: 4px;
 }
 
 .participants-list {
-	background-color: #FFF;
-
-	-webkit-box-shadow: -3px 5px 10px 0px rgba(0,0,0,0.50);
-	-moz-box-shadow: -3px 5px 10px 0px rgba(0,0,0,0.50);
-	box-shadow: -3px 5px 10px 0px rgba(0,0,0,0.50);
+	background-color: #BFB8C1;
+	border-radius: 4px 0 0 4px;
 }
 
-.chat-messages {
-	background-color: #EEE;
-
-	-webkit-box-shadow: 3px 5px 10px 0px rgba(0,0,0,0.50);
-	-moz-box-shadow: 3px 5px 10px 0px rgba(0,0,0,0.50);
-	box-shadow: 3px 5px 10px 0px rgba(0,0,0,0.50);
+.chat-messages, 
+.chat-repeater-container {
+	background-color: #29394C;
+	border-radius: 0 4px 4px 0;
 }
 
-.participants-list-header,
-.chat-header {
-	background-color: rgba(10,191,188, .8);
+.participants-list-header{
+	background-color: #20BCB9;
 	margin: 0;
+	border-radius: 4px 0 0 0;
 }
 
-.participants-list-header h3,
-.chat-header h3 {
-	color: #FFF;
+.participants-list-header h3{
+	color: #DBDCDD;
 }
 
 .participants-list-repeater-container .md-virtual-repeat-offsetter {
@@ -48,60 +47,11 @@
 .participants-list-item button {
 	text-align: left;
 	background-color: rgba(69, 170, 185, 0.5);
-	color: #FFF;
+	color: #DBDCDD;
 }
 
-/*.chat-grid {
-	width: 100%;
-	min-height: 100%;
+.message-controls {
+	padding: 10px;
+	border-radius: 0 0 4px 0;
 }
 
-.chat-grid md-grid-tile figure {
-	align-items: flex-start;
-	justify-content: flex-start;
-	padding-top: 35px;
-}
-
-.chat-grid > .participants-list {
-	background-color: #5aadbb;
-	color: white;
-}
-
-.grid-list-username {
-	padding-left: 10px;
-	width: 180px;
-	text-align: left;
-}
-
-.grid-list-username:hover {
-	background-color: rgba(69, 170, 185, 0.29) !important;
-}
-
-.unread-message-count {
-	margin-top: 12px;
-}
-
-.chat-message-header {
-	width: 100%;
-	height: 49px;
-	background-color: rgb(74, 142, 153);
-	color: #FFF !important;
-}
-
-.chat-grid .chat-content figure {
-	padding: 0;	
-}
-
-.chat-grid .chat-content figure #messages-container {
-	height: 755px;
-	width: 1660px;
-}
-
-.message-prefix {
-	font-weight: bold;
-	color: blue;
-}
-
-.message-prefix.message-from {
-	color: green;
-}*/

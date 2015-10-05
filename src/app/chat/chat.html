@@ -1,43 +1,44 @@
-<div layout="column" layout-fill class="chat-container">
+<div layout="row" layout-fill class="chat-container">
+	
+	<!-- Participant List -->
+	<div flex="20" layout="column" class="participants-list">
+		<md-subheader class="participants-list-header">
+			<h3>
+				Welcome, {{chat.user.username}}
+			</h3>
+		</md-subheader>
 
-	<md-subheader class="participants-list-header">
-		<h3>Welcome, {{chat.user.username}}</h3>
-	</md-subheader>
-
-	<div layout="row" layout-fill flex>
-		<!-- Participant List -->
-		<div flex="20" layout="column" class="participants-list">
-			<md-virtual-repeat-container flex class="participants-list-repeater-container">
-				<div ng-click="chat.participantsListClick(participant)" md-virtual-repeat="participant in chat.participantList" md-on-demand class="participants-list-item" layout="column">
-					<div>
-						{{participant.username}}
-					</div>
-					<div class="unread-message-count" ng-show="participant.unreadMessages > 0">
-						{{participant.unreadMessages}} unread messages
-					</div>
+		<md-virtual-repeat-container flex class="participants-list-repeater-container">
+			<div ng-click="chat.participantsListClick(participant)" md-virtual-repeat="participant in chat.participantList" md-on-demand class="participants-list-item" layout="column">
+				<div>
+					{{participant.username}}
 				</div>
-			</md-virtual-repeat-container>
-		</div>
-
-		<!-- Chat Area -->
-		<div flex="80" layout="column" ng-if="chat.currentConversation.username != undefined" class="chat-messages">
-			<md-virtual-repeat-container id="chat-container-list-repeater-container">
-				<div md-virtual-repeat="message in chat.currentConversation.messages" md-on-demand class="repeated-item" flex layout="row">
-					<span class="message-prefix" ng-if="message.from == chat.user.username">[{{message.time}}] You said: </span> 
-					<span class="message-prefix message-from" ng-if="message.from == chat.currentConversation.username">[{{message.time}}] {{message.from}} said: </span>
-					<span>&nbsp;{{message.message}}</span>
+				<div class="unread-message-count" ng-show="participant.unreadMessages > 0">
+					{{participant.unreadMessages}} unread messages
 				</div>
-			</md-virtual-repeat-container>
-
-			<div layout="row">
-				<md-input-container flex="90">
-					<label>Message</label>
-					<input ng-model="chat.messageText" columns="1" md-maxlength="150"></input>
-				</md-input-container>
-				<md-button ng-click="chat.sendMessage()" flex="10">
-					Send
-				</md-button>
 			</div>
+		</md-virtual-repeat-container>
+	</div>
+
+	<!-- Chat Area -->
+	<div flex="80" layout="column" ng-if="chat.currentConversation.username != undefined" class="chat-messages">
+		<md-virtual-repeat-container class="chat-repeater-container" flex>
+			<div md-virtual-repeat="message in chat.currentConversation.messages" md-on-demand class="repeated-item" flex layout="row">
+				<span class="message-prefix" ng-if="message.from == chat.user.username">[{{message.time}}] You said: </span> 
+				<span class="message-prefix message-from" ng-if="message.from == chat.currentConversation.username">[{{message.time}}] {{message.from}} said: </span>
+				<span>&nbsp;{{message.message}}</span>
+			</div>
+		</md-virtual-repeat-container>
+
+		<div layout="row" class="message-controls">
+			<md-input-container flex="90">
+				<label>Message</label>
+				<input ng-model="chat.messageText" columns="1" md-maxlength="150"></input>
+			</md-input-container>
+			<md-button ng-click="chat.sendMessage()" flex="10">
+				Send
+			</md-button>
 		</div>
 	</div>
+	
 </div>

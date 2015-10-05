@@ -42,30 +42,8 @@ html {
 }
 
 body {
-  /*background-color: #FCF7C5;*/
-
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0fb4e7+0,a9e4f7+100 */
-  background: rgb(15,180,231); /* Old browsers */
-  background: -moz-linear-gradient(top,  rgba(15,180,231,1) 0%, rgba(169,228,247,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(15,180,231,1)), color-stop(100%,rgba(169,228,247,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  rgba(15,180,231,1) 0%,rgba(169,228,247,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  rgba(15,180,231,1) 0%,rgba(169,228,247,1) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  rgba(15,180,231,1) 0%,rgba(169,228,247,1) 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  rgba(15,180,231,1) 0%,rgba(169,228,247,1) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0fb4e7', endColorstr='#a9e4f7',GradientType=0 ); /* IE6-9 */
-
-}
-
-section.jumbotron {
-  margin-bottom: 30px;
-  padding: 1px 30px;
-  background-color: #5aadbb;
-  text-align: center;
-  color: white;
-}
-
-section.jumbotron h1 {
-  font-size: 3em;
+  background: url(../assets/images/bg.jpg)
+  /*background-color: #EAEAEA;*/
 }
 
 .login-message {
@@ -79,20 +57,23 @@ section.jumbotron h1 {
 }
 
 .login-box {
+  border-radius: 4px;
   width: 100%;
   max-width: 25rem;
   height: 20rem;
   margin: -15rem auto 0;
 
-  background-color: rgba(155,165,170, .2);
-  box-shadow: 0 0 1.8rem rgba(0,0,0,.15);
+  /*background-color: rgba(155,165,170, .12);*/
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 1.8rem rgba(0,0,0,.25);
 
   justify-content: space-between;
 }
 
 .login-box-header {
-  background-color: rgb(77, 162, 122);
+  background-color: #20BCB9;
   margin: 0;
+  border-radius: 4px 4px 0 0;
 }
 
 .login-box-header h3 {
@@ -105,36 +86,45 @@ section.jumbotron h1 {
 }
 
 .login-error-box div {
-  color: #D49784;
+  color: #D49784 !important;
 }
 
+/* Login Input Box - Default State */
+
+/* Login Input Box - Invalid State */
+
 .login-box form md-input-container.md-input-invalid input {
-  border-color: #D49784;
+  border-color: #D49784 !important;
 }
 
 .login-box form md-input-container.md-input-invalid label {
-  color: #D49784;
+  color: #D49784 !important;
 }
 
+/* Login Input Box - Focused State */
+
 .login-box form md-input-container:not(.md-input-invalid).md-input-focused input {
-  border-color: rgba(100, 162, 122, .8);
+  border-color: rgba(32, 188, 185, .5)
 }
 
 .login-box form md-input-container:not(.md-input-invalid).md-input-focused label {
-  color: rgba(100, 162, 122, .8);
+  color: rgba(32, 188, 185, .5)
 }
 
+/* Login Input Box - "Has value" State */
+
+
 .login-btn {
-  background-color: rgb(77, 162, 122);
+  background-color: #20BCB9;
   color: #DBDCDD;
 }
 
 .login-btn:not([disabled]):hover {
-  background-color: rgba(77, 162, 122, .9);
+  background-color: rgba(32, 188, 185, .9);
   color: #DBDCDD;
 }
 
 .login-btn:not([disabled]).md-focused {
-  background-color: rgba(77, 162, 122, .2);
+  background-color: rgba(32, 188, 185, .2);
   color: #BABABA;
 }

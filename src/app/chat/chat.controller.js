@@ -52,14 +52,14 @@
         // It'll send a new message to another participant according currentConversation configuration.
         function sendMessage() {
             if (angular.isDefined(chat.messageText) && chat.messageText !== "") {
-                chat.currentConversation.messages.push({
-                    from: chat.user.username,
-                    time: moment().format('hh:mm:ss'),
-                    message: chat.messageText
-                });
-
                 $wamp.call('com.chat.talkto.'+chat.currentConversation.guid, [chat.messageText, {username:chat.user.username, guid:chat.user.guid}]).then(
                     function(res) {
+                        chat.currentConversation.messages.push({
+                            from: chat.user.username,
+                            time: moment().format('hh:mm:ss'),
+                            message: chat.messageText
+                        });
+                        
                         chat.messageText = "";
                         $log.info(res);
                     }
