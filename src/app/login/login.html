@@ -8,7 +8,7 @@
     <form name="loginForm">
       <md-input-container class="chat-input">
         <label>Username</label>
-        <input required type="text" name="username" ng-model="vm.username">
+        <input required type="text" name="username" ng-model="vm.username" md-maxlength="15">
         <div ng-messages="loginForm.username.$error" class="login-error-box">
           <div ng-message="required">This is required.</div>
           <div ng-message="loginFail"></div>

@@ -40,14 +40,27 @@
 }
 
 .participants-list-item {
-	padding: 10px;
+	padding: 15px 10px;
 	cursor: pointer;
+	border-left: 2px solid rgba(255, 255, 255, 0);	
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 
 .participants-list-item > .unread-message-count {
 	font-size: 12px;
 	color: #d5d5d5;
 	font-style: italic;
+}
+
+.participants-list-item:hover {
+	background-color: rgba(238, 238, 238, .3);
+}
+
+.participants-list-item:focus,
+.participants-list-item.is-selected {
+	border-left: 2px solid #e6765d;
+	outline: none;
+	background-color: #EEE;
 }
 
 .participants-list-item button {
@@ -59,6 +72,10 @@
 .logout-btn {
 	margin: 0 10px 0 0;
 	background-color: rgba(255, 255, 255, .15) !important;	
+}
+
+.logout-btn:hover {
+	background-color: rgba(255, 255, 255, .20) !important;	
 }
 
 /*
