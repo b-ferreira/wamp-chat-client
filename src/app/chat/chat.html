@@ -2,10 +2,15 @@
 	
 	<!-- Participant List -->
 	<div flex="20" layout="column" class="participants-list">
-		<md-subheader class="participants-list-header">
-			<h3>
-				Welcome, {{chat.user.username}}
-			</h3>
+		<md-subheader class="participants-list-header" >
+			<div layout="row" layout-align="center center" flex>
+				<md-icon>chat</md-icon>
+				<h3 flex>{{chat.user.username}}</h3>
+				<md-button class="md-fab md-mini logout-btn" ng-click="chat.logout()">
+					<md-icon >exit_to_app</md-icon>
+				</md-button>
+			</div>
+			
 		</md-subheader>
 
 		<md-virtual-repeat-container flex class="participants-list-repeater-container">
@@ -21,7 +26,14 @@
 	</div>
 
 	<!-- Chat Area -->
-	<div flex="80" layout="column" ng-if="chat.currentConversation.username != undefined" class="chat-messages">
+	<div flex="80" layout="column" class="chat-messages">
+		<!-- Chat area header -->
+		<md-subheader class="chat-header">
+			<h3>
+				{{chat.currentConversation.username && chat.currentConversation.username || !chat.currentConversation.username &&  '&nbsp;'}}
+			</h3>
+		</md-subheader>
+
 		<md-virtual-repeat-container class="chat-repeater-container" flex>
 			<div md-virtual-repeat="message in chat.currentConversation.messages" md-on-demand class="repeated-item" flex layout="row">
 				<span class="message-prefix" ng-if="message.from == chat.user.username">[{{message.time}}] You said: </span> 
@@ -31,11 +43,11 @@
 		</md-virtual-repeat-container>
 
 		<div layout="row" class="message-controls">
-			<md-input-container flex="90">
+			<md-input-container flex="90" class="chat-input">
 				<label>Message</label>
 				<input ng-model="chat.messageText" columns="1" md-maxlength="150"></input>
 			</md-input-container>
-			<md-button ng-click="chat.sendMessage()" flex="10">
+			<md-button class="chat-btn" ng-click="chat.sendMessage()" flex="10">
 				Send
 			</md-button>
 		</div>

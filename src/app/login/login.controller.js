@@ -23,7 +23,7 @@
                         vm.loginStatus = 'ok';
                         $state.go('home.chat', {user:res.data});
                     },
-                    function(error) {
+                    function() {
                         vm.loginStatus = 'fail';
                     }
                 );

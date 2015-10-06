@@ -6,7 +6,7 @@
     </md-subheader>
 
     <form name="loginForm">
-      <md-input-container class="login-input">
+      <md-input-container class="chat-input">
         <label>Username</label>
         <input required type="text" name="username" ng-model="vm.username">
         <div ng-messages="loginForm.username.$error" class="login-error-box">
@@ -17,6 +17,6 @@
       <span class="login-message error" ng-if="vm.loginStatus == 'fail'">This username is already in use. Please, select another.</span>
     </form>
 
-    <md-button class="login-btn"  ng-click="vm.login()">Login</md-button> 
+    <md-button class="chat-btn"  ng-click="vm.login()">Login</md-button> 
   </div>
 </div>

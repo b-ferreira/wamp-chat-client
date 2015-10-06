@@ -29,8 +29,8 @@
         // Logout button handler.
         function logout() {
             $wamp.call('com.chat.logout', [chat.user.username]).then(
-                function(res) {
-                    $state.go('home.login');
+                function() {
+                    $state.go('home');
                 }
             );
         }
@@ -143,20 +143,20 @@
                 chat.user = $stateParams.user;
 
             // Call RPC to populate participants' list.
-        	$wamp.call('com.chat.getparticipants').then(
-        		function(res) {
-                        chat.participantList =  res.filter(function(elm) {
-                           return elm.username !== chat.user.username; 
-                        }).map(function(elm) {
-                            return {
-                                username: elm.username,
-                                guid: elm.guid,
-                                unreadMessages: 0,
-                                messages: []
-                            }
-                        });
-        		}
-        	);
+            $wamp.call('com.chat.getparticipants').then(
+                function(res) {
+                    chat.participantList =  res.filter(function(elm) {
+                        return elm.username !== chat.user.username; 
+                    }).map(function(elm) {
+                        return {
+                            username: elm.username,
+                            guid: elm.guid,
+                            unreadMessages: 0,
+                            messages: []
+                        }
+                    });
+                }
+            );
 
             // Register RPC to comunicate with current username, i.e. Browser to Browser.
             $wamp.register('com.chat.talkto.'+chat.user.guid, talkToCallback).then(

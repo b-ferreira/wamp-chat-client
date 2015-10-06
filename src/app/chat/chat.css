@@ -1,3 +1,6 @@
+/*
+ 	Main Container Styles
+ */
 .chat-container {
 	margin: 45px 85px;
 
@@ -8,25 +11,28 @@
 	border-radius: 4px;
 }
 
+/*
+ 	Participants' List Styles
+ */
+
 .participants-list {
-	background-color: #BFB8C1;
+	background-color: #FFF;
 	border-radius: 4px 0 0 4px;
 }
 
-.chat-messages, 
-.chat-repeater-container {
-	background-color: #29394C;
-	border-radius: 0 4px 4px 0;
-}
-
 .participants-list-header{
-	background-color: #20BCB9;
+	background-color: #29394C;
 	margin: 0;
 	border-radius: 4px 0 0 0;
 }
 
 .participants-list-header h3{
 	color: #DBDCDD;
+}
+
+.participants-list-header md-icon {
+	color: #DBDCDD;
+	padding-right: 15px;
 }
 
 .participants-list-repeater-container .md-virtual-repeat-offsetter {
@@ -50,8 +56,37 @@
 	color: #DBDCDD;
 }
 
+.logout-btn {
+	margin: 0 10px 0 0;
+	background-color: rgba(255, 255, 255, .15) !important;	
+}
+
+/*
+ 	Conversation Styles
+ */
+
+.chat-header {
+	background-color: #29394C;
+	margin: 0;
+	border-radius: 0 4px 0 0;
+	border-left: 1px solid rgba(255, 255, 255, .3);
+}
+
+.chat-header h3 {
+	color: #DBDCDD;
+	text-align: center;
+}
+
+.chat-messages, 
+.chat-repeater-container {
+	background-color: #EEEEEE;
+	border-radius: 0 4px 4px 0;
+}
+
 .message-controls {
-	padding: 10px;
+	padding: 0 25px 10px 25px;
 	border-radius: 0 0 4px 0;
 }
+
+
 
