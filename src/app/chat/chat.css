@@ -58,7 +58,7 @@
 
 .participants-list-item:focus,
 .participants-list-item.is-selected {
-	border-left: 2px solid #e6765d;
+	border-right: 2px solid #e6765d;
 	outline: none;
 	background-color: #EEE;
 }
@@ -105,5 +105,61 @@
 	border-radius: 0 0 4px 0;
 }
 
+.chat-repeater-container .md-virtual-repeat-offsetter {
+	right: 0;
+}
 
+.message-prefix {
+	color: #FFF;
+	font-weight: bold;
+}
 
+.message-prefix.message-from {
+	color: #e6765d;
+}
+
+.message-item {
+	padding: 15px;
+	background-color: rgba(41, 57, 76, .1);
+	border-radius: 4px;
+	margin: 10px 35px;
+
+	-webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+/**********************
+ * Animations
+ **********************/
+
+/* Animation for  message-controls */
+.message-controls.ng-hide-remove {
+	-webkit-animation: .3s lightSpeedIn ease-in-out;
+  	animation: .3s lightSpeedIn ease-in-out;
+}
+
+/* light speed out */
+@keyframes lightSpeedIn {
+	0% {
+		opacity: 0;
+		transform: translate(0, -100px);
+	}
+
+	100% {
+		transform: translate(0, 0);
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes lightSpeedIn {
+	0% {
+		opacity: 0;
+		-webkit-transform: translate(0, -100px);
+	}
+
+	100% {
+		-webkit-transform: translate(0, 0);
+		opacity: 1;
+	}
+}

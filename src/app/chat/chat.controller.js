@@ -3,9 +3,9 @@
     angular
         .module('wampChatClient')
         .controller('ChatController', ChatController);
-    ChatController.$inject = ['$wamp', '$rootScope', '$state', '$stateParams', '$log', '$mdToast', '$mdDialog'];
+    ChatController.$inject = ['$wamp', '$scope', '$state', '$stateParams', '$log', '$mdToast', '$mdDialog', '$window'];
     /* @ngInject */
-    function ChatController($wamp, $rootScope, $state, $stateParams, $log, $mdToast, $mdDialog) {
+    function ChatController($wamp, $scope, $state, $stateParams, $log, $mdToast, $mdDialog, $window) {
         var chat = this;
 
         /*
@@ -24,14 +24,29 @@
             messages: []
         };
 
+        /*
+         * Event Handlers
+         */
+         // Perform logout when user tries to leave the page.
+        $scope.$on('$locationChangeStart', function(ev, to) {
+            if (to.indexOf('/chat') === -1) {
+                ev.preventDefault();
+                askForLogout(ev);
+            }
+        });
+
+        // If the user closes or reloads the page, we just call logout method on back-end.
+        $window.onbeforeunload = function(ev) {
+            if ($state.current.name === "home.chat")
+                $wamp.call('com.chat.logout', [chat.user.username]);
+        }
+
         activate();
         ////////////////
-        // Logout button handler.
-        function logout(ev) {
-            // Appending dialog to document.body to cover sidenav in docs app
+        function askForLogout(ev) {
             var confirm = $mdDialog.confirm()
                 .title('Would you like to logout?')
-                .targetEvent(ev)
+                .targetEvent(angular.isDefined(ev) ? ev : undefined)
                 .ok('yes')
                 .cancel('no');
 
@@ -42,6 +57,12 @@
                     }
                 );
             });
+        }
+
+        // Logout button handler.
+        function logout(ev) {
+            // Appending dialog to document.body to cover sidenav in docs app
+            askForLogout(ev);
         }
 
         // Click handler called when user clicks on items from participants' list.
@@ -118,10 +139,10 @@
                 }
 
                 chat.participantList.forEach(function(elm, idx) {
-                    if (elm.username === someParticipant.username) {
+                    if (elm.username === someParticipant.username && elm.username !== chat.user.username) {
                         chat.participantList.splice(idx, 1);
 
-                        if (chat.currentConversation.unreadMessages == someParticipant.username) {
+                        if (chat.currentConversation.username == someParticipant.username) {
                             chat.currentConversation = {
                                 username: undefined,
                                 guid: undefined,
@@ -132,7 +153,7 @@
                         $mdToast.show(
                             $mdToast.simple()
                                 .content(someParticipant.username + ' has logged out!')
-                                .position('bottom right')
+                                .position('top right')
                                 .hideDelay(3000)
                         );
                     }
