@@ -17,7 +17,7 @@
         chat.sendMessage = sendMessage;
 
         // Vars
-        chat.participantList = [];        
+        chat.participantList = new Array();
         chat.currentConversation = {
             username: undefined,
             guid: undefined,
@@ -36,13 +36,19 @@
         });
 
         // If the user closes or reloads the page, we just call logout method on back-end.
-        $window.onbeforeunload = function(ev) {
-            if ($state.current.name === "home.chat")
-                $wamp.call('com.chat.logout', [chat.user.username]);
-        }
+        $window.onbeforeunload = windowCloseHandler;
+        $window.onunload = windowCloseHandler;
 
         activate();
         ////////////////
+        function windowCloseHandler(ev) {
+            if ($state.current.name === "home.chat")
+                $wamp.publish('com.chat.participantloggedout', [{
+                    username: chat.user.username,
+                    guid: chat.user.guid
+                }]);
+        }
+
         function askForLogout(ev) {
             var confirm = $mdDialog.confirm()
                 .title('Would you like to logout?')
@@ -51,11 +57,11 @@
                 .cancel('no');
 
             $mdDialog.show(confirm).then(function() {
-                  $wamp.call('com.chat.logout', [chat.user.username]).then(
-                    function() {
-                        $state.go('home');
-                    }
-                );
+                $wamp.publish('com.chat.participantloggedout', [{
+                    username: chat.user.username,
+                    guid: chat.user.guid
+                }]);
+                $state.go('home');
             });
         }
 
@@ -204,38 +210,96 @@
             return "Message received!";
         }
 
+        /**
+         * Callback method for "com.chat.userinfo + {{$wamp session}}" calls. It'll return current user's info.
+         * @return {Object} Current user's info
+         */
+        function userInfoHandler() {
+            if (angular.isDefined(chat.user))
+                return {
+                    username: chat.user.username,
+                    guid: chat.user.guid
+                }
+            else return null;
+        }
+
         // This function will be called when controller has been created and will setup our chat environment.
         function activate() {
             if (angular.isDefined($stateParams.user))
                 chat.user = $stateParams.user;
 
-            // Call RPC to populate participants' list.
-            $wamp.call('com.chat.getparticipants').then(
-                function(res) {
-                    chat.participantList =  res.filter(function(elm) {
-                        return elm.username !== chat.user.username; 
-                    }).map(function(elm) {
-                        return {
-                            username: elm.username,
-                            guid: elm.guid,
-                            unreadMessages: 0,
-                            messages: []
-                        }
-                    });
-                }
-            );
+            /**
+             * Here we'll load participant's list using promise chaning over $wamp. 
+             * To perform it we'll ask for user's info over $wamp.session list.
+             */
+            $wamp.call('wamp.session.list')
+                .then(function(sessionList) {
+                    if (!angular.isArray(sessionList)) 
+                        sessionList = []
+
+                    return Promise.all(
+                        sessionList
+                            .filter(function(session) {
+                                return session !== $wamp.connection._session._id
+                            })
+                            .map(function(session) {
+                                return $wamp.call('com.chat.userinfo.' + session)
+                                    .catch(function(error) {
+                                        return error.msg == 'wamp.errors.no_such_procedure'
+                                            ? null
+                                            : error
+                                    })
+                            })
+                            .filter(function(uinfo) {
+                                return uinfo !== null;
+                            })
+                    )
+                })
+                .then(function(participants) {
+                    return participants
+                        .filter(function(user) {
+                            return !user.hasOwnProperty('error');
+                        })
+                        .map(function(user) {
+                            return { 
+                                username: user.username, 
+                                guid: user.guid, 
+                                unreadMessages: 0, 
+                                messages: []
+                            }
+                        })
+                })
+                .then(function(participants) {
+                    if (angular.isArray(chat.participantList)) {
+                        Array.prototype.push.apply(chat.participantList, participants)
+                    }
+                });
+
+            // -------------------
+            // RPC Registering
+            // -------------------
 
             // Register RPC to comunicate with current username, i.e. Browser to Browser.
-            $wamp.register('com.chat.talkto.'+chat.user.guid, talkToCallback).then(
-                function(res) {
-                    $log.info(res);
-                },
-                function(error) {
-                    $log.info(error);
-                }
-            );
+            $wamp.register('com.chat.talkto.'+chat.user.guid, talkToCallback).then(function(res) {
+                $log.info(res);
+            }, function(error) {
+                $log.info(error);
+            });
 
-            // Subscribe to login topic. Everty time a new participant has logged in a callback will be executed.
+            /**
+             * Register RPC to provide user information over $wamp.
+             */
+            $wamp.register('com.chat.userinfo.'+$wamp.connection._session._id, userInfoHandler).then(function(res) {
+                $log.info(res);
+            }, function(error) {
+                $log.info(error);
+            });
+
+            // -------------------
+            // Topic Subscribing
+            // -------------------            
+
+            // Subscribe to login topic. Every time a new participant has logged in a callback will be executed.
             $wamp.subscribe('com.chat.newparticipant', newParticipantCallback);
 
             // Subscribe to logout topic. When an user has logged out, our participants' list'll be updated.
