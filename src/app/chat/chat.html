@@ -37,20 +37,20 @@
 			</h3>
 		</md-subheader>
 
-		<md-virtual-repeat-container class="chat-repeater-container" flex>
-			<div md-virtual-repeat="message in chat.currentConversation.messages" md-on-demand class="message-item" ng-class="{'from': message.from == chat.currentConversation.username, 'self': message.from == chat.user.username}" flex layout="row" layout-align="start center">
+		<div class="chat-repeater-container">
+			<div ng-repeat="message in chat.currentConversation.messages" class="message-item" ng-class="{'from': message.from == chat.currentConversation.username, 'self': message.from == chat.user.username}" flex>
 				<span class="message-prefix" ng-if="message.from == chat.user.username">[ {{message.time}} ] You said: </span> 
 				<span class="message-prefix message-from" ng-if="message.from == chat.currentConversation.username">[ {{message.time}} ] {{message.from}} said: </span>
 				<span>&nbsp;{{message.message}}</span>
 			</div>
-		</md-virtual-repeat-container>
+		</div>
 
 		<div layout="row" class="message-controls" ng-show="chat.currentConversation.username">
-			<md-input-container flex="90" class="chat-input">
+			<md-input-container flex="85" class="chat-input" ng-keypress="$event.keyCode != 13 || chat.sendMessage()">
 				<label>Message</label>
 				<input ng-model="chat.messageText" columns="1" md-maxlength="150"></input>
 			</md-input-container>
-			<md-button class="chat-btn" ng-click="chat.sendMessage()" flex="10">
+			<md-button class="chat-btn" ng-click="chat.sendMessage()" flex="15">
 				Send
 			</md-button>
 		</div>

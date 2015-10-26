@@ -3,9 +3,9 @@
     angular
         .module('wampChatClient')
         .controller('ChatController', ChatController);
-    ChatController.$inject = ['$wamp', '$scope', '$state', '$stateParams', '$log', '$mdToast', '$mdDialog', '$window'];
+    ChatController.$inject = ['$wamp', '$scope', '$state', '$stateParams', '$log', '$mdToast', '$mdDialog', '$window', '$timeout'];
     /* @ngInject */
-    function ChatController($wamp, $scope, $state, $stateParams, $log, $mdToast, $mdDialog, $window) {
+    function ChatController($wamp, $scope, $state, $stateParams, $log, $mdToast, $mdDialog, $window, $timeout) {
         var chat = this;
 
         /*
@@ -84,6 +84,18 @@
             };
         }
 
+        /**
+         * Put message container scroll on last message received/sent
+         */
+        function scrollToLastMessage() {
+            // Put message container scroll on last message received/sent
+            $timeout(function() {
+                var messageContainer = angular.element(document.getElementsByClassName('chat-repeater-container')[0])[0];
+                if (angular.isDefined(messageContainer))
+                    messageContainer.scrollTop = messageContainer.scrollHeight;    
+            }, 0);
+        }
+
         // Click handler called when user clicks on send button
         // It'll send a new message to another participant according currentConversation configuration.
         function sendMessage() {
@@ -95,6 +107,8 @@
                             time: moment().format('hh:mm:ss'),
                             message: chat.messageText
                         });
+
+                        scrollToLastMessage();
                         
                         chat.messageText = "";
                         $log.info(res);
@@ -185,6 +199,9 @@
                     time: moment().format('hh:mm:ss'),
                     message: message
                 });
+
+                scrollToLastMessage();
+
             } else {
                 var anotherParticipant = chat.participantList.filter(function(elm) {
                     return elm.username == from.username;

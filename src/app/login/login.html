@@ -5,7 +5,7 @@
       <h3>Wamp Chat</h3>
     </md-subheader>
 
-    <form name="loginForm">
+    <form name="loginForm" ng-submit="vm.login()">
       <md-input-container class="chat-input">
         <label>Username</label>
         <input required type="text" name="username" ng-model="vm.username" md-maxlength="15">
@@ -16,6 +16,6 @@
       </md-input-container>
     </form>
 
-    <md-button class="chat-btn"  ng-click="vm.login()">Login</md-button> 
+    <md-button class="chat-btn"  ng-click="vm.login()">Login</md-button>
   </div>
 </div>

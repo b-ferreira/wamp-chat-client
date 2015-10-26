@@ -94,14 +94,29 @@
 	text-align: center;
 }
 
-.chat-messages, 
+.chat-messages {
+	position: relative;
+}
+
+.chat-messages,
 .chat-repeater-container {
 	background-color: #EEEEEE;
 	border-radius: 0 4px 4px 0;
 }
 
+.chat-repeater-container {
+	top: 85px;
+	position: absolute;
+	width: 100%;
+	height: 78%;
+	overflow: auto;
+}
+
 .message-controls {
-	padding: 0 25px 10px 25px;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	padding: 5px 25px 5px 25px;
 	border-radius: 0 0 4px 0;
 }
 
@@ -110,7 +125,7 @@
 }
 
 .message-prefix {
-	color: #FFF;
+	color: #9F9F9F;
 	font-weight: bold;
 }
 
